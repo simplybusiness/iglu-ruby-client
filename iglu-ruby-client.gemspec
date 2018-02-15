@@ -27,14 +27,14 @@ Gem::Specification.new do |s|
   s.email       = 'support@snowplowanalytics.com'
   s.files       = %w(LICENSE-2.0.txt README.md) + Dir.glob('lib/**/*.rb') + Dir.glob('assets/**/*')
   s.platform    = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 2.1.10'
   s.metadata    = {
     'bug_tracker_uri' => 'https://github.com/snowplow/iglu-ruby-client/issues',
     'wiki_uri'        => 'https://github.com/snowplow/iglu/wiki/Ruby-client'
   }
 
   s.add_runtime_dependency "httparty", "~> 0.15.0"
-  s.add_runtime_dependency "json-schema", "~> 2.7.0", '>= 2.7.0'
-  s.add_development_dependency "rspec", "~> 2.14", '>= 2.14.1'
+  s.add_runtime_dependency "json-schema", '>= 2.7.0'
+  s.add_development_dependency "rspec", "~> 3.4.0"
 
 end

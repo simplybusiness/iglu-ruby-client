@@ -30,7 +30,11 @@ module Iglu
     # Construct SchemaVer from string
     def self.parse_schemaver(version)
       model, revision, addition = version.scan(SCHEMAVER_REGEX).flatten
-      SchemaVer.new model.to_i, revision.to_i, addition.to_i
+      if model.nil? or revision.nil? or addition.nil?
+          raise IgluError.new "Schema version #{version} is not a valid Iglu SchemaVer"
+      else
+          SchemaVer.new model.to_i, revision.to_i, addition.to_i
+      end
     end
   end
 
@@ -62,10 +66,9 @@ module Iglu
 
 
   # Custom validator, allowing to use self-describing JSON Schemas
-  class SelfDescribingSchema < JSON::Schema::Validator
+  class SelfDescribingSchema < JSON::Schema::Draft4
     def initialize
       super
-      extend_schema_definition("http://json-schema.org/draft-04/schema#")
       @uri = URI.parse("http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#")
     end
 

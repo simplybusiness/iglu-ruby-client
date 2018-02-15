@@ -45,8 +45,32 @@ describe Iglu do
     expect(Iglu::SchemaKey.parse_key("iglu:com.snowplowanalytics.snowplow/event/jsonschema/1-0-1")).to eq(Iglu::SchemaKey.new("com.snowplowanalytics.snowplow", "event", "jsonschema", Iglu::SchemaVer.new(1, 0, 1)))
   end
 
-  it 'correctly parses SchemaVer into object' do
+  it 'correctly parses SchemaVer into object (single-digit versions)' do
     expect(Iglu::SchemaVer.parse_schemaver("2-0-3")).to eq(Iglu::SchemaVer.new(2, 0, 3))
+  end
+
+  it 'correctly parses SchemaVer into object (multiple-digits versions)' do
+    expect(Iglu::SchemaVer.parse_schemaver("10-0-112")).to eq(Iglu::SchemaVer.new(10, 0, 112))
+  end
+
+  it 'throws exception on an incorrect SchemaVer (letter-digit mixed)' do
+    expect { Iglu::SchemaVer.parse_schemaver("10-a-1") }.to raise_error(Iglu::IgluError)
+  end
+
+  it 'throws exception on an incorrect SchemaVer (0 based versioning)' do
+    expect { Iglu::SchemaVer.parse_schemaver("0-1-2") }.to raise_error(Iglu::IgluError)
+  end
+
+  it 'throws exception on an incorrect SchemaVer (with lower case letters)' do
+    expect { Iglu::SchemaVer.parse_schemaver("a-b-c") }.to raise_error(Iglu::IgluError)
+  end
+
+  it 'throws exception on an incorrect SchemaVer (with upper case letters)' do
+    expect { Iglu::SchemaVer.parse_schemaver("A-B-C") }.to raise_error(Iglu::IgluError)
+  end
+
+  it 'throws exception on an incorrect SchemaVer (dot formatted)' do
+    expect { Iglu::SchemaVer.parse_schemaver("2.0.3") }.to raise_error(Iglu::IgluError)
   end
 
   it 'throws exception on an incorrect SchemaKey (without iglu protocol)' do
