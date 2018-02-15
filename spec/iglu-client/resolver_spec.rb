@@ -62,7 +62,6 @@ describe Iglu do
     expect(resolver.cache.size).to eq(1)
   end
 
-
   it 'throws an exception on resolver configuration not matching its JSON Schema' do
     expect { Iglu::Resolver.parse(@json_invalid_config) }.to raise_error(JSON::Schema::ValidationError)
   end
