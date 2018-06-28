@@ -16,9 +16,15 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'iglu-client/version'
 
+gem_version = if ENV['GEM_PRE_RELEASE'].nil? || ENV['GEM_PRE_RELEASE'].empty?
+                Iglu::CLIENT_VERSION
+              else
+                "#{Iglu::CLIENT_VERSION}.#{ENV['GEM_PRE_RELEASE']}"
+              end
+
 Gem::Specification.new do |s|
   s.name        = 'iglu-ruby-client'
-  s.version     = Iglu::CLIENT_VERSION
+  s.version     = gem_version
   s.homepage    = 'http://github.com/snowplow/iglu-ruby-client'
   s.license     = 'Apache License 2.0'
   s.summary     = "A Ruby client for Iglu"
