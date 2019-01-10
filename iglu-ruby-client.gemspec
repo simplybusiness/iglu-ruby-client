@@ -16,9 +16,24 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'iglu-client/version'
 
+gem_version = if ENV['GEM_PRE_RELEASE'].nil? || ENV['GEM_PRE_RELEASE'].empty?
+                Iglu::CLIENT_VERSION
+              else
+                "#{Iglu::CLIENT_VERSION}.#{ENV['GEM_PRE_RELEASE']}"
+              end
+
 Gem::Specification.new do |s|
+    # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
+  # 'allowed_push_host' to allow pushing to a single host or delete this section
+  # to allow pushing to any host.
+  if s.respond_to?(:metadata)
+    s.metadata['allowed_push_host'] = 'http://gemstash.simplybusiness.io/private'
+  else
+    raise 'RubyGems 2.2 or newer is required to protect against public gem pushes.'
+  end
+
   s.name        = 'iglu-ruby-client'
-  s.version     = Iglu::CLIENT_VERSION
+  s.version     = gem_version
   s.homepage    = 'http://github.com/snowplow/iglu-ruby-client'
   s.license     = 'Apache License 2.0'
   s.summary     = "A Ruby client for Iglu"
