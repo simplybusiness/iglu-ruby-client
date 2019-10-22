@@ -10,5 +10,8 @@
 # See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
 module Iglu
-  CLIENT_VERSION = '0.2.0'
+  # This unusual version number is to make sure that the gem is pulled
+  # from our gemstash, rather than rubygems when testing for dependencies.
+  # Otherwise it will check dependencies on rubygems.
+  CLIENT_VERSION = '0.2.1.sb'
 end
