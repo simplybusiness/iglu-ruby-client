@@ -9,9 +9,10 @@
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
+# Set to version before version where changes should be merged in `snowplow/iglu-ruby-client` which is
+# targetted for `3.0.0`.
+# https://github.com/snowplow/iglu-ruby-client/pull/20
+# https://github.com/snowplow/iglu-ruby-client/pull/19
 module Iglu
-  # This unusual version number is to make sure that the gem is pulled
-  # from our gemstash, rather than rubygems when testing for dependencies.
-  # Otherwise it will check dependencies on rubygems.
-  CLIENT_VERSION = '0.2.1.sb'
+  CLIENT_VERSION = '0.2.9'
 end
